@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Redmine Toggl Importer",
+    name: "Importr",
     targets: [
         Target(
             name: "importr",
