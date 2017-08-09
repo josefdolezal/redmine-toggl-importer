@@ -15,7 +15,7 @@ enum RedmineAPI: APITarget {
     case timeEntries
 
     var data: (path: String, method: Method, parameters: [String: Any]?) {
-        return ("time_entries.jsom", .get, nil)
+        return ("time_entries.json", .get, nil)
     }
 
     var path: String { return data.path }
