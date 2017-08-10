@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 
-final class TogglAuthPlugin: PluginType {
+public final class TogglAuthPlugin: PluginType {
     private let token: String
 
     private struct HeaderKeys {
@@ -20,11 +20,11 @@ final class TogglAuthPlugin: PluginType {
         }
     }
 
-    init(token: String) {
+    public init(token: String) {
         self.token = token
     }
 
-    func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
+    public func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
         var mutableRequst = request
 
         mutableRequst.addValue(HeaderKeys.basicAuthorization(token), forHTTPHeaderField: HeaderKeys.authorization)

@@ -9,18 +9,18 @@
 import Moya
 import ReactiveMoya
 
-typealias RedmineProvider = DynamicReactiveProvider<RedmineAPI>
+public typealias RedmineProvider = DynamicReactiveProvider<RedmineAPI>
 
-enum RedmineAPI: APITarget {
+public enum RedmineAPI: APITarget {
     case timeEntries
 
-    var data: (path: String, method: Method, parameters: [String: Any]?) {
+    private var data: (path: String, method: Method, parameters: [String: Any]?) {
         return ("time_entries.json", .get, nil)
     }
 
-    var path: String { return data.path }
+    public var path: String { return data.path }
 
-    var method: Moya.Method { return data.method }
+    public var method: Moya.Method { return data.method }
 
-    var parameters: [String: Any]? { return data.parameters }
+    public var parameters: [String: Any]? { return data.parameters }
 }

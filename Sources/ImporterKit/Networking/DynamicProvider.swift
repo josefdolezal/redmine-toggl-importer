@@ -11,7 +11,7 @@ import Moya
 import ReactiveMoya
 import ReactiveSwift
 
-protocol APITarget {
+public protocol APITarget {
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String { get }
 
@@ -34,40 +34,40 @@ protocol APITarget {
     var validate: Bool { get }
 }
 
-extension APITarget {
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+public extension APITarget {
+    public var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
 
-    var sampleData: Data { return Data() }
+    public var sampleData: Data { return Data() }
 
-    var task: Task { return .request }
+    public var task: Task { return .request }
 
-    var validate: Bool { return false }
+    public var validate: Bool { return false }
 }
 
-struct DynamicTarget: TargetType {
-    var baseURL: URL
+public struct DynamicTarget: TargetType {
+    public var baseURL: URL
 
-    var apiTarget: APITarget
+    public var apiTarget: APITarget
 
-    var path: String { return apiTarget.path }
+    public var path: String { return apiTarget.path }
 
-    var method: Moya.Method { return apiTarget.method }
+    public var method: Moya.Method { return apiTarget.method }
 
-    var parameters: [String: Any]? { return apiTarget.parameters }
+    public var parameters: [String: Any]? { return apiTarget.parameters }
 
-    var parameterEncoding: ParameterEncoding { return apiTarget.parameterEncoding }
+    public var parameterEncoding: ParameterEncoding { return apiTarget.parameterEncoding }
 
-    var sampleData: Data { return apiTarget.sampleData }
+    public var sampleData: Data { return apiTarget.sampleData }
 
-    var task: Task { return apiTarget.task }
+    public var task: Task { return apiTarget.task }
 
-    var validate: Bool { return apiTarget.validate }
+    public var validate: Bool { return apiTarget.validate }
 }
 
-final class DynamicReactiveProvider<Target>: ReactiveSwiftMoyaProvider<DynamicTarget> where Target: APITarget {
+public final class DynamicReactiveProvider<Target>: ReactiveSwiftMoyaProvider<DynamicTarget> where Target: APITarget {
     private let baseURL: URL
 
-    init(baseURL: URL,
+    public init(baseURL: URL,
          endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
          requestClosure: @escaping RequestClosure = MoyaProvider.defaultRequestMapping,
          stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
@@ -81,12 +81,12 @@ final class DynamicReactiveProvider<Target>: ReactiveSwiftMoyaProvider<DynamicTa
                    manager: manager, plugins: plugins, stubScheduler: stubScheduler, trackInflights: trackInflights)
     }
 
-    func request(_ token: Target) -> SignalProducer<Response, MoyaError> {
+    public func request(_ token: Target) -> SignalProducer<Response, MoyaError> {
         let dynamicTarget = DynamicTarget(baseURL: baseURL, apiTarget: token)
         return super.request(dynamicTarget)
     }
 
-    func requestWithProgress(token: Target) -> SignalProducer<ProgressResponse, MoyaError> {
+    public func requestWithProgress(token: Target) -> SignalProducer<ProgressResponse, MoyaError> {
         let dynamicTarget = DynamicTarget(baseURL: baseURL, apiTarget: token)
 
         return super.requestWithProgress(token: dynamicTarget)
