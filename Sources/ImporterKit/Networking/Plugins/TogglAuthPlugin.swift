@@ -13,7 +13,11 @@ final class TogglAuthPlugin: PluginType {
     private let token: String
 
     private struct HeaderKeys {
-        static let authorization = "Basic"
+        static let authorization = "Authorization"
+
+        static func basicAuthorization(_ token: String) -> String {
+            return "Basic \(token)"
+        }
     }
 
     init(token: String) {
@@ -23,7 +27,7 @@ final class TogglAuthPlugin: PluginType {
     func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
         var mutableRequst = request
 
-        mutableRequst.addValue(token, forHTTPHeaderField: "\(HeaderKeys.authorization) \(token)")
+        mutableRequst.addValue(HeaderKeys.basicAuthorization(token), forHTTPHeaderField: HeaderKeys.authorization)
 
         return mutableRequst
     }
