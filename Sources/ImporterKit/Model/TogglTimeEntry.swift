@@ -6,6 +6,8 @@
 //
 //
 
+import Foundation
+
 struct TogglTimeEntry {
     let ID: Int
     let description: String?
