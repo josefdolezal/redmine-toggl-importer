@@ -66,6 +66,7 @@ public struct DynamicTarget: TargetType {
 
 public final class DynamicReactiveProvider<Target>: ReactiveSwiftMoyaProvider<DynamicTarget> where Target: APITarget {
     private let baseURL: URL
+    private let backgroundQueue = DispatchQueue(label: "ImportrKit", qos: DispatchQoS.background)
 
     public init(baseURL: URL,
          endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
@@ -83,7 +84,8 @@ public final class DynamicReactiveProvider<Target>: ReactiveSwiftMoyaProvider<Dy
 
     public func request(_ token: Target) -> SignalProducer<Response, MoyaError> {
         let dynamicTarget = DynamicTarget(baseURL: baseURL, apiTarget: token)
-        return super.request(dynamicTarget)
+
+        return request(dynamicTarget, dispatchQueue: backgroundQueue)
     }
 
     public func requestWithProgress(token: Target) -> SignalProducer<ProgressResponse, MoyaError> {
