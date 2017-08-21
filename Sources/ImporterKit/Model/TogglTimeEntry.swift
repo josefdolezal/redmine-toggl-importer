@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct TogglTimeEntry {
-    let ID: Int
-    let description: String?
-    let start: Date
-    let end: Date
-    let duration: Int
-    let client: String
-    let project: String
-    let tags: [String]
+public struct TogglTimeEntry {
+    public let ID: Int
+    public let description: String?
+    public let start: Date
+    public let end: Date
+    public let duration: Int
+    public let client: String
+    public let project: String
+    public let tags: [String]
 }
