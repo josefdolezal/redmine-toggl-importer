@@ -14,10 +14,22 @@
       "version": "0.6.1"
     },
     {
+      "package": "Mapper",
+      "reason": null,
+      "repositoryURL": "https://github.com/lyft/mapper",
+      "version": "6.0.0"
+    },
+    {
       "package": "Moya",
       "reason": null,
       "repositoryURL": "https://github.com/Moya/Moya.git",
       "version": "8.0.5"
+    },
+    {
+      "package": "Moya-ModelMapper",
+      "reason": null,
+      "repositoryURL": "https://github.com/josefdolezal/Moya-ModelMapper.git",
+      "version": "4.1.2"
     },
     {
       "package": "ReactiveSwift",
