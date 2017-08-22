@@ -14,13 +14,11 @@ extension TogglTimeEntry: Mappable {
         let ID: Int = try map.from("id")
         let description: String = try map.from("description")
         let start: Date = try map.from("start")
-        let end: Date = try map.from("end")
+        let end: Date = try map.from("stop")
         let duration: Int = try map.from("duration")
-        let client: String = try map.from("client")
-        let project: String = try map.from("project")
-        let tags: [String] = try map.from("tags")
+        let tags: [String] = map.optionalFrom("tags") ?? []
 
-        self.init(ID: ID, description: description, start: start, end: end, duration: duration,
-                  client: client, project: project, tags: tags)
+        self.init(ID: ID, description: description, start: start, end: end,
+                  duration: duration, tags: tags)
     }
 }
