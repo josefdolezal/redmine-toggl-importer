@@ -8,11 +8,15 @@
 
 import Foundation
 
-public struct TogglTimeEntry {
+public struct TogglTimeEntry: CustomStringConvertible {
     public let ID: Int
-    public let description: String
+    public let comment: String
     public let start: Date
     public let end: Date
     public let duration: Int
     public let tags: [String]
+
+    public var description: String {
+        return "\(Formatters.DisplayDateFormatter.string(from: start)) - \(comment)"
+    }
 }
