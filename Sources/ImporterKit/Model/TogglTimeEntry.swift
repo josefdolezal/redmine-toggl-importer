@@ -17,6 +17,6 @@ public struct TogglTimeEntry: CustomStringConvertible {
     public let tags: [String]
 
     public var description: String {
-        return "\(Formatters.DisplayDateFormatter.string(from: start)) - \(comment)"
+        return "[\(Formatters.DisplayDateFormatter.string(from: start))] \(comment)"
     }
 }
