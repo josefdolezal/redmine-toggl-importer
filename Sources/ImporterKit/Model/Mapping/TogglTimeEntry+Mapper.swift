@@ -13,8 +13,8 @@ extension TogglTimeEntry: Mappable {
     public init(map: Mapper) throws {
         let ID: Int = try map.from("id")
         let comment: String = try map.from("description")
-        let start: Date = try map.from("start")
-        let end: Date = try map.from("stop")
+        let start: Date = try map.from("start", transformation: Date.isoFormatTransformation)
+        let end: Date = try map.from("stop", transformation: Date.isoFormatTransformation)
         let duration: Int = try map.from("duration")
         let tags: [String] = map.optionalFrom("tags") ?? []
 

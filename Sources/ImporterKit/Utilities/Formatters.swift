@@ -24,4 +24,12 @@ enum Formatters {
 
         return formatter
     }()
+
+    static let StandardAPIDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+
+        formatter.dateFormat = "YYYY-MM-dd"
+
+        return formatter
+    }()
 }
