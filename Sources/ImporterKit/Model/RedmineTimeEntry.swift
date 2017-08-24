@@ -8,11 +8,15 @@
 
 import Foundation
 
-struct RedmineTimeEntry {
-    let ID: Int
-    let project: RedmineProject
-    let issue: Int
-    let hours: Double
-    let comment: String
-    let date: Date
+public struct RedmineTimeEntry: CustomStringConvertible {
+    public let ID: Int
+    public let project: RedmineProject
+    public let issue: Int
+    public let hours: Double
+    public let comment: String
+    public let date: Date
+
+    public var description: String {
+        return "[\(Formatters.DisplayDateFormatter.string(from: date))] \(comment), \(project)"
+    }
 }

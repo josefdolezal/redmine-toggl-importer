@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct RedmineProject {
-    let ID: Int
-    let name: String
+public struct RedmineProject: CustomStringConvertible {
+    public let ID: Int
+    public let name: String
+
+    public var description: String {
+        return name
+    }
 }
