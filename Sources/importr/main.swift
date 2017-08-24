@@ -21,10 +21,23 @@ let main = command(
     let togglProvider = TogglProvider(baseURL: URL(string: "https://www.toggl.com/api/v8/")!,
                                       plugins: [TogglAuthPlugin(token: togglToken)])
 
-    redmineProvider.request(.timeEntries).first()?.analysis(ifSuccess: { response in
-        print(response)
+    let togglService = TogglService(provider: togglProvider)
+    let redmineService = RedmineService(provider: redmineProvider)
+
+    print("Toggl Time Entries")
+    togglService.timeEntries().first()?.analysis(ifSuccess: { timeEntries in
+        timeEntries.forEach { print($0) }
     }, ifFailure: { error in
         print(error)
+        exit(1)
+    })
+
+    print("Redmine Time Entries")
+    redmineService.timeEntries().first()?.analysis(ifSuccess: { timeEntries in
+        timeEntries.forEach { print($0) }
+    }, ifFailure: { error in
+        print(error)
+        exit(1)
     })
 }
 
