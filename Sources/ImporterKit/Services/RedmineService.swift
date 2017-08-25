@@ -10,19 +10,20 @@ import Moya
 import ReactiveSwift
 
 public protocol RedmineServiceType {
-    func timeEntries() -> SignalProducer<[RedmineTimeEntry], MoyaError>
+    func timeEntries(limit: Int, offset: Int) -> SignalProducer<[RedmineTimeEntry], MoyaError>
 }
 
 public final class RedmineService: RedmineServiceType {
 
     private let provider: RedmineProvider
+    private let userID: Int = 284
 
     public init(provider: RedmineProvider) {
         self.provider = provider
     }
 
-    public func timeEntries() -> SignalProducer<[RedmineTimeEntry], MoyaError> {
-        return provider.request(.timeEntries)
+    public func timeEntries(limit: Int, offset: Int = 0) -> SignalProducer<[RedmineTimeEntry], MoyaError> {
+        return provider.request(.timeEntries(userID: userID, limit: limit, offset: offset))
             .filterSuccessfulStatusCodes()
             .mapArray(type: RedmineTimeEntry.self, keyPath: "time_entries")
     }
