@@ -17,6 +17,6 @@ public struct RedmineTimeEntry: CustomStringConvertible {
     public let date: Date
 
     public var description: String {
-        return "[\(Formatters.DisplayDateFormatter.string(from: date))] \(comment), \(project)"
+        return "[\(Formatters.DisplayDateFormatter.string(from: date))] \(Formatters.TimeFormatter(hours)) #\(issue) \(comment), \(project)"
     }
 }

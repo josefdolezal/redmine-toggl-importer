@@ -32,4 +32,11 @@ enum Formatters {
 
         return formatter
     }()
+
+    static let TimeFormatter: (Double) -> String = { time in
+        let hours = Int(time)
+        let minutes = Int(modf(time).1 * 60)
+
+        return String.init(format: "%2d:%2d", hours, minutes)
+    }
 }
