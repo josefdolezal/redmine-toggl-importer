@@ -21,6 +21,13 @@ public enum RedmineAPI: APITarget {
         }
     }
 
+    public var parameterEncoding: ParameterEncoding {
+        switch data.method {
+        case .put, .post: return JSONEncoding.default
+        default: return URLEncoding.default
+        }
+    }
+
     public var path: String { return data.path }
 
     public var method: Moya.Method { return data.method }
