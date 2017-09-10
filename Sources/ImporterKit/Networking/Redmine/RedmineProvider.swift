@@ -9,15 +9,15 @@
 import Moya
 import ReactiveMoya
 
-public typealias RedmineProvider = DynamicReactiveProvider<RedmineAPI>
+public typealias RedmineProvider = DynamicProvider<RedmineAPI>
 
-public enum RedmineAPI: APITarget {
+public enum RedmineAPI: APITargetType {
     case timeEntries(userID: Int, limit: Int, offset: Int)
 
-    private var data: (path: String, method: Method, parameters: [String: Any]?) {
+    private var data: (path: String, method: Method, task: Task) {
         switch self {
         case let .timeEntries(userID, limit, offset):
-            return ("time_entries.json", .get, ["user_id": userID, "limit": limit, "offset": offset])
+            return ("time_entries.json", .get, .jsonRequest(["user_id": userID, "limit": limit, "offset": offset]))
         }
     }
 
@@ -32,5 +32,5 @@ public enum RedmineAPI: APITarget {
 
     public var method: Moya.Method { return data.method }
 
-    public var parameters: [String: Any]? { return data.parameters }
+    public var task: Task { return data.task }
 }

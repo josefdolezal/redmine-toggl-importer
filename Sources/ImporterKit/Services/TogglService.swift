@@ -24,6 +24,6 @@ public final class TogglService: TogglServiceType {
     public func timeEntries() -> SignalProducer<[TogglTimeEntry], MoyaError> {
         return provider.request(.timeEntries)
             .filterSuccessfulStatusCodes()
-            .mapArray(type: TogglTimeEntry.self)
+            .map(to: [TogglTimeEntry].self)
     }
 }

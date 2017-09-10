@@ -25,6 +25,6 @@ public final class RedmineService: RedmineServiceType {
     public func timeEntries(limit: Int, offset: Int = 0) -> SignalProducer<[RedmineTimeEntry], MoyaError> {
         return provider.request(.timeEntries(userID: userID, limit: limit, offset: offset))
             .filterSuccessfulStatusCodes()
-            .mapArray(type: RedmineTimeEntry.self, keyPath: "time_entries")
+            .map(to: [RedmineTimeEntry].self, keyPath: "time_entries")
     }
 }
