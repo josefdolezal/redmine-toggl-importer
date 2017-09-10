@@ -11,6 +11,7 @@ import ReactiveSwift
 import ReactiveMoya_ModelMapper
 
 public protocol TogglServiceType {
+    func validateAccessToken() -> SignalProducer<Void, MoyaError>
     func timeEntries() -> SignalProducer<[TogglTimeEntry], MoyaError>
 }
 
@@ -19,6 +20,12 @@ public final class TogglService: TogglServiceType {
 
     public init(provider: TogglProvider) {
         self.provider = provider
+    }
+
+    public func validateAccessToken() -> SignalProducer<Void, MoyaError> {
+        return provider.request(.validateAccessToken)
+            .filterSuccessfulStatusCodes()
+            .map { _ in }
     }
 
     public func timeEntries() -> SignalProducer<[TogglTimeEntry], MoyaError> {
