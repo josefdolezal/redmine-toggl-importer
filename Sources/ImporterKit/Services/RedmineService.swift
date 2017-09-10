@@ -10,6 +10,7 @@ import Moya
 import ReactiveSwift
 
 public protocol RedmineServiceType {
+    func validateAccessToken() -> SignalProducer<Void, MoyaError>
     func timeEntries(limit: Int, offset: Int) -> SignalProducer<[RedmineTimeEntry], MoyaError>
 }
 
@@ -20,6 +21,12 @@ public final class RedmineService: RedmineServiceType {
 
     public init(provider: RedmineProvider) {
         self.provider = provider
+    }
+
+    public func validateAccessToken() -> SignalProducer<Void, MoyaError> {
+        return provider.request(.validateAccessToken)
+            .filterSuccessfulStatusCodes()
+            .map { _ in }
     }
 
     public func timeEntries(limit: Int, offset: Int = 0) -> SignalProducer<[RedmineTimeEntry], MoyaError> {

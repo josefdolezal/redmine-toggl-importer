@@ -12,10 +12,13 @@ import ReactiveMoya
 public typealias RedmineProvider = DynamicProvider<RedmineAPI>
 
 public enum RedmineAPI: APITargetType {
+    case validateAccessToken
     case timeEntries(userID: Int, limit: Int, offset: Int)
 
     private var data: (path: String, method: Method, task: Task) {
         switch self {
+        case .validateAccessToken:
+            return ("users/current.json", .get, .requestPlain)
         case let .timeEntries(userID, limit, offset):
             return ("time_entries.json", .get, .jsonRequest(["user_id": userID, "limit": limit, "offset": offset]))
         }
